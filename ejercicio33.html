@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Anagramas</title>
+    <style>
+        /* Manteniendo tu estilo visual */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h2 { color: #2c3e50; margin-bottom: 25px; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #2980b9; }
+        #resultado {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .si { background-color: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+        .no { background-color: #f8d7da; color: #721c24; border-left: 5px solid #dc3545; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Verificador de Anagramas</h2>
+    
+    <div class="input-group">
+        <label>Primera palabra:</label>
+        <input type="text" id="palabra1" placeholder="Ej: listen">
+    </div>
+    
+    <div class="input-group">
+        <label>Segunda palabra:</label>
+        <input type="text" id="palabra2" placeholder="Ej: silent">
+    </div>
+    
+    <button onclick="verificarAnagrama()">Verificar</button>
+    
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function verificarAnagrama() {
+        // 1. Obtener valores y limpiar (quitar espacios y pasar a minúsculas)
+        let p1 = document.getElementById("palabra1").value.toLowerCase().trim();
+        let p2 = document.getElementById("palabra2").value.toLowerCase().trim();
+        const resDiv = document.getElementById("resultado");
+
+        if (p1 === "" || p2 === "") {
+            resDiv.style.display = "block";
+            resDiv.className = "no";
+            resDiv.innerText = "Escribe ambas palabras";
+            return;
+        }
+
+        // 2. Lógica de Anagrama:
+        // split('') convierte el texto en array: ['l','i','s'...]
+        // sort() ordena alfabéticamente: ['e','i','l'...]
+        // join('') vuelve a unir el array en texto: "eilnst"
+        let p1Ordenada = p1.split('').sort().join('');
+        let p2Ordenada = p2.split('').sort().join('');
+
+        resDiv.style.display = "block";
+
+        // 3. Comparar y mostrar resultado exacto
+        if (p1Ordenada === p2Ordenada) {
+            resDiv.className = "si";
+            resDiv.innerText = "Si";
+        } else {
+            resDiv.className = "no";
+            resDiv.innerText = "No";
+        }
+    }
+</script>
+
+</body>
+</html>

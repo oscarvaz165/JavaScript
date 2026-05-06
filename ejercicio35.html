@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Segundos</title>
+    <style>
+        /* Estilo para que se vea como tu Sistema de Calificaciones */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 { color: #2c3e50; margin-bottom: 20px; }
+        label { display: block; text-align: left; font-weight: bold; margin-bottom: 8px; color: #333; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #2980b9; }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #e8f4fd;
+            color: #2c3e50;
+            font-weight: 500;
+            display: none; /* Se oculta hasta que haya resultado */
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Convertidor de Tiempo</h2>
+    
+    <label for="segundosInput">Segundos a convertir:</label>
+    <input type="number" id="segundosInput" placeholder="Ej: 3661">
+    
+    <button onclick="convertir()">Convertir Tiempo</button>
+    
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function convertir() {
+        const input = document.getElementById("segundosInput");
+        const resultadoDiv = document.getElementById("resultado");
+        let totalSegundos = parseInt(input.value);
+
+        if (isNaN(totalSegundos) || totalSegundos < 0) {
+            resultadoDiv.style.display = "block";
+            resultadoDiv.style.backgroundColor = "#fee2e2"; // Rojo claro
+            resultadoDiv.innerText = "Por favor, ingresa un número válido.";
+            return;
+        }
+
+        // Lógica de conversión
+        let horas = Math.floor(totalSegundos / 3600);
+        let minutos = Math.floor((totalSegundos % 3600) / 60);
+        let segundos = totalSegundos % 60;
+
+        // Formato pedido: "3661 segundos corresponden a 1h, 1m y 1 s"
+        let mensaje = `${totalSegundos} segundos corresponden a ${horas}h, ${minutos}m y ${segundos}s`;
+
+        // Mostrar resultado con estilo
+        resultadoDiv.style.display = "block";
+        resultadoDiv.style.backgroundColor = "#e8f4fd"; // Azul claro
+        resultadoDiv.innerText = mensaje;
+    }
+</script>
+
+</body>
+</html>
